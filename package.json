@@ -3,7 +3,7 @@
   "version": "2.4.8",
   "description": "Tool that interacts with the Riot LCU",
   "homepage": "https://github.com/MManoah/league-profile-tool",
-  "author": "Manoah",
+  "author": "Simba",
   "main": "main.js",
   "private": true,
   "scripts": {

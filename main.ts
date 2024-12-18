@@ -1,11 +1,12 @@
-import {app, BrowserWindow, globalShortcut} from 'electron';
+import {app, BrowserWindow, globalShortcut, ipcMain} from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
 // Initialize remote module
-require('@electron/remote/main').initialize();
+import { initialize } from '@electron/remote/main';
+initialize();
 
-let win: BrowserWindow = null;
+let win: BrowserWindow | null = null;
 const args = process.argv.slice(1),
   serve = args.some(val => val === '--serve');
 
@@ -19,7 +20,7 @@ function createWindow(): BrowserWindow {
       nodeIntegration: true,
       allowRunningInsecureContent: (serve),
       contextIsolation: false,  // false if you want to run 2e2 test with Spectron
-      enableRemoteModule: true, // true if you want to run 2e2 test  with Spectron or use remote module in renderer context (ie. Angular)
+      preload: path.join(__dirname, 'preload.js'), // Use preload script to enable remote module
       devTools: false
     },
     autoHideMenuBar: true,
